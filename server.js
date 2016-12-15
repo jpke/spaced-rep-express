@@ -1,5 +1,5 @@
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-require("dotenv").config();
+// require("dotenv").config();
 var CLIENT_ID  = process.env.CLIENT_ID;
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
 var express = require('express');
