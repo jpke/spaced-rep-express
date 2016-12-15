@@ -300,7 +300,7 @@ var OAuth2 = google.auth.OAuth2;
 var oauth2Client = new OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
-  'http://localhost:3090/auth/google/callback'
+  'https://intense-wildwood-92655.herokuapp.com/auth/google/callback'
 );
 
 app.get('/auth/google', function(req, res) {
@@ -329,11 +329,11 @@ app.get('/auth/google/callback', function(req, res) {
 								console.log('user created')
 								}
 							}).then(function() {
-							res.cookie('accessToken', tokens.access_token).redirect("http://localhost:3000");
+							res.cookie('accessToken', tokens.access_token).redirect("https://enigmatic-refuge-11264.herokuapp.com/");
 							})	
 						})
 					} else {
-						res.cookie('accessToken', tokens.access_token).redirect("http://localhost:3000");
+						res.cookie('accessToken', tokens.access_token).redirect("https://enigmatic-refuge-11264.herokuapp.com/");
 					}
 				}
 		    });
