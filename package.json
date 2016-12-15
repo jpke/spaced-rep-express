@@ -1,0 +1,33 @@
+{
+  "name": "spaced-rep-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "questions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpke/spaced-rep-express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpke/spaced-rep-express/issues"
+  },
+  "homepage": "https://github.com/jpke/spaced-rep-express#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "googleapis": "^15.0.0",
+    "http": "0.0.0",
+    "mongoose": "^4.7.2",
+    "passport": "^0.3.2",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-http-bearer": "^1.0.1",
+    "path": "^0.12.7"
+  }
+}
