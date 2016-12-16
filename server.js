@@ -130,6 +130,7 @@ app.get('/auth/google', function(req, res) {
 
 app.get('/auth/google/callback', function(req, res) {
 	oauth2Client.getToken(req.query.code, function (err, tokens) {
+		console.log(FRONT_END.concat("/access_token?"+ tokens.access_token))
 	  // Now tokens contains an access_token and an optional refresh_token. Save them.
 	  	if (!err) {
 		    //oauth2Client.setCredentials(tokens);
@@ -145,12 +146,12 @@ app.get('/auth/google/callback', function(req, res) {
 									console.log('user created')
 									}
 								}).then(function() {
-								res.redirect(FRONT_END.concat("?"+ tokens.access_token))
+								res.redirect(FRONT_END.concat("/access_token?"+ tokens.access_token))
 								})	
 							})
 						} else {
 							// res.redirect(FRONT_END).json({"accessToken": tokens.access_token});
-							res.redirect(FRONT_END.concat("?"+ tokens.access_token))
+							res.redirect(FRONT_END.concat("/access_token?"+ tokens.access_token))
 						}
 					}
 		    });
