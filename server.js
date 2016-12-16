@@ -1,4 +1,3 @@
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
 // require("dotenv").config();
 var CLIENT_ID  = process.env.CLIENT_ID;
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -165,7 +164,7 @@ app.get('/auth/google/callback', function(req, res) {
 var databaseURI = process.env.DATABASE_URI || 'mongodb://<database name>';
 mongoose.connect(databaseURI).then(function() {
 	//User.remove({});
-	var port = process.env.port || 3090;
+	var port = process.env.PORT || 3090;
 	var server = http.createServer(app);
 	server.listen(port);
 	console.log('Server listening on ', port);
