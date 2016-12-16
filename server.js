@@ -129,6 +129,7 @@ app.get('/auth/google', function(req, res) {
 
 app.get('/auth/google/callback', function(req, res) {
 	oauth2Client.getToken(req.query.code, function (err, tokens) {
+		console.log('ACCESS_TOKEN:', tokens)
 	  // Now tokens contains an access_token and an optional refresh_token. Save them.
 	  	if (!err) {
 		    //oauth2Client.setCredentials(tokens);
