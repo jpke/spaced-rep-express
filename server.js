@@ -133,25 +133,24 @@ app.get('/auth/google/callback', function(req, res) {
 	  	if (!err) {
 		    //oauth2Client.setCredentials(tokens);
 		    User.findOne({ token: tokens.access_token }, function (err, user) {
-				if (!err) {
-					if (!user) {
-						user = new User()
-						user.token = tokens.access_token
-						Questions.find({}, {_id: 1, mValue: 1}, function(err, data) {
-							console.log('DATA:::', data)
-							user.questions = data
-							user.save(function(err) {
-								if (!err) {
-								console.log('user created')
-								}
-							}).then(function() {
+					if (!err) {
+						if (!user) {
+							user = new User()
+							user.token = tokens.access_token
+							Questions.find({}, {_id: 1, mValue: 1}, function(err, data) {
+								user.questions = data
+								user.save(function(err) {
+									if (!err) {
+									console.log('user created')
+									}
+								}).then(function() {
+								res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
+								})	
+							})
+						} else {
 							res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
-							})	
-						})
-					} else {
-						res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
+						}
 					}
-				}
 		    });
   		} else {
   			res.status(500).json({'error': err});
@@ -159,10 +158,9 @@ app.get('/auth/google/callback', function(req, res) {
 	});
 })
 
-// var frontEnd = "https://enigmatic-refuge-11264.herokuapp.com/"
+var frontEnd = "https://enigmatic-refuge-11264.herokuapp.com/"
 // var callbackGoogleAuth = 'https://intense-wildwood-92655.herokuapp.com/auth/google/callback'
-var frontEnd = 'http://localhost:3000'
-var callbackGoogleAuth = 'http://localhost:3090/auth/google/callback'
+// var frontEnd = 'http://localhost:3000'
 
 var databaseURI = process.env.DATABASE_URI || 'mongodb://<database name>';
 mongoose.connect(databaseURI).then(function() {
