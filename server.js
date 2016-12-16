@@ -2,6 +2,7 @@ require("dotenv").config({silent: true});
 var CLIENT_ID  = process.env.CLIENT_ID;
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
 var REDIRECT_URL = process.env.REDIRECT_URL;
+var FRONT_END = process.env.FRONT_END;
 var express = require('express');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -129,7 +130,6 @@ app.get('/auth/google', function(req, res) {
 
 app.get('/auth/google/callback', function(req, res) {
 	oauth2Client.getToken(req.query.code, function (err, tokens) {
-		console.log('ACCESS_TOKEN:', tokens)
 	  // Now tokens contains an access_token and an optional refresh_token. Save them.
 	  	if (!err) {
 		    //oauth2Client.setCredentials(tokens);
@@ -145,11 +145,11 @@ app.get('/auth/google/callback', function(req, res) {
 									console.log('user created')
 									}
 								}).then(function() {
-								res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
+								res.cookie('accessToken', tokens.access_token).redirect(FRONT_END);
 								})	
 							})
 						} else {
-							res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
+							res.cookie('accessToken', tokens.access_token).redirect(FRONT_END);
 						}
 					}
 		    });
@@ -158,10 +158,6 @@ app.get('/auth/google/callback', function(req, res) {
   		}
 	});
 })
-
-var frontEnd = "https://enigmatic-refuge-11264.herokuapp.com/"
-// var callbackGoogleAuth = 'https://intense-wildwood-92655.herokuapp.com/auth/google/callback'
-// var frontEnd = 'http://localhost:3000'
 
 var databaseURI = process.env.DATABASE_URI || 'mongodb://<database name>';
 mongoose.connect(databaseURI).then(function() {
