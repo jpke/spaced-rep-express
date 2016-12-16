@@ -145,11 +145,12 @@ app.get('/auth/google/callback', function(req, res) {
 									console.log('user created')
 									}
 								}).then(function() {
-								res.cookie('accessToken', tokens.access_token).redirect(FRONT_END);
+								res.redirect(FRONT_END.concat("?"+ tokens.access_token))
 								})	
 							})
 						} else {
-							res.cookie('accessToken', tokens.access_token).redirect(FRONT_END);
+							// res.redirect(FRONT_END).json({"accessToken": tokens.access_token});
+							res.redirect(FRONT_END.concat("?"+ tokens.access_token))
 						}
 					}
 		    });
