@@ -67,8 +67,8 @@ app.put('/question', jsonParser, passport.authenticate('bearer', { session: fals
 			console.error(err)
 			return res.status(500).json('Internal Server Error')
 		}
-		let isCorrect = req.body.isCorrect
-		let dataToUpdate = data[0].questions
+		var isCorrect = req.body.isCorrect
+		var dataToUpdate = data[0].questions
 		if(dataToUpdate[0]._id == req.body._id) {
 			if(isCorrect) {
 				if(dataToUpdate[0].mValue === 1) {
@@ -146,12 +146,12 @@ app.get('/auth/google/callback', function(req, res) {
 									console.log('user created')
 									}
 								}).then(function() {
-								res.redirect(FRONT_END.concat("/access_token?"+ tokens.access_token))
+								res.redirect(FRONT_END.concat("/#/access_token?"+ tokens.access_token))
 								})	
 							})
 						} else {
 							// res.redirect(FRONT_END).json({"accessToken": tokens.access_token});
-							res.redirect(FRONT_END.concat("/access_token?"+ tokens.access_token))
+							res.redirect(FRONT_END.concat("/#/access_token?"+ tokens.access_token))
 						}
 					}
 		    });
