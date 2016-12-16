@@ -14,7 +14,7 @@ var path = require('path');
 
 var app = express();
 app.use(cors());
-app.use(express.static( '../build'));
+app.use(express.static( './build'));
 var jsonParser = bodyParser.json();
 
 passport.serializeUser(function(user, done) {
@@ -37,9 +37,9 @@ passport.use(new Strategy(
 
 app.use(passport.initialize());
 
-app.get('/*', function (req, res) {
-   res.sendFile(path.join(__dirname, './build', 'index.html'));
- });
+// app.get('/*', function (req, res) {
+//    res.sendFile(path.join(__dirname, './build', 'index.html'));
+//  });
 
 app.get('/question', passport.authenticate('bearer', { session: false }), function(req, res) {
 	var accessToken = req.headers.authorization.split(' ')[1]
@@ -81,11 +81,9 @@ app.put('/question', jsonParser, passport.authenticate('bearer', { session: fals
 			console.error(err)
 			res.status(500).json("Internal Data Error")
 		}
-
 		updatedQuestionOrder = dataToUpdate.slice(1, dataToUpdate[0].mValue + 1)
 		updatedQuestionOrder.push(dataToUpdate[0])
 		updatedQuestionOrder = updatedQuestionOrder.concat(dataToUpdate.slice((dataToUpdate[0].mValue + 1), dataToUpdate.length))
-
 		User.findById(data[0]._id, function(err, updatedData) {
 			if(err) {
 				console.log("err:", err);
