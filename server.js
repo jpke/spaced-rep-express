@@ -1,6 +1,7 @@
-// require("dotenv").config();
+require("dotenv").config({silent: true});
 var CLIENT_ID  = process.env.CLIENT_ID;
 var CLIENT_SECRET = process.env.CLIENT_SECRET;
+var REDIRECT_URL = process.env.REDIRECT_URL;
 var express = require('express');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -114,10 +115,11 @@ var OAuth2 = google.auth.OAuth2;
 var oauth2Client = new OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
-  'https://intense-wildwood-92655.herokuapp.com/auth/google/callback'
+  REDIRECT_URL
 );
 
 app.get('/auth/google', function(req, res) {
+	console.log("auth/google endpoint accessed", REDIRECT_URL)
 	var url = oauth2Client.generateAuthUrl({
 	  // If you only need one scope you can pass it as string
 	  scope: 'profile'
@@ -143,11 +145,11 @@ app.get('/auth/google/callback', function(req, res) {
 								console.log('user created')
 								}
 							}).then(function() {
-							res.cookie('accessToken', tokens.access_token).redirect("https://enigmatic-refuge-11264.herokuapp.com/");
+							res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
 							})	
 						})
 					} else {
-						res.cookie('accessToken', tokens.access_token).redirect("https://enigmatic-refuge-11264.herokuapp.com/");
+						res.cookie('accessToken', tokens.access_token).redirect(frontEnd);
 					}
 				}
 		    });
@@ -157,11 +159,13 @@ app.get('/auth/google/callback', function(req, res) {
 	});
 })
 
-
+// var frontEnd = "https://enigmatic-refuge-11264.herokuapp.com/"
+// var callbackGoogleAuth = 'https://intense-wildwood-92655.herokuapp.com/auth/google/callback'
+var frontEnd = 'http://localhost:3000'
+var callbackGoogleAuth = 'http://localhost:3090/auth/google/callback'
 
 var databaseURI = process.env.DATABASE_URI || 'mongodb://<database name>';
 mongoose.connect(databaseURI).then(function() {
-	//User.remove({});
 	var port = process.env.PORT || 3090;
 	var server = http.createServer(app);
 	server.listen(port);
