@@ -164,7 +164,7 @@ app.get('/question', passport.authenticate('bearer', { session: false }), functi
 	})
 })
 
-
+//submit user's response to quiz question
 app.put('/question', jsonParser, passport.authenticate('bearer', { session: false }), function(req, res) {
 	var accessToken = req.headers.authorization.split(' ')[1]
 	User.findOne({token: accessToken})
@@ -203,9 +203,9 @@ app.put('/question', jsonParser, passport.authenticate('bearer', { session: fals
 })
 
 
-//create demo user
+//create demo user and get first quiz question
 //to prevent infinite demo users from being created, only 10 demo users allowed in database at one time
-app.post('/demo/question', function(req, res) {
+app.post('/demo/user', function(req, res) {
 	//initialize new demo user
 	var user = new User()
 	user.name = "demo user"
@@ -248,7 +248,7 @@ app.get('/demo/question', function(req, res) {
 	})
 })
 
-//update demo user's quiz question response
+//submit demo user's response to quiz question
 app.put('/demo/question', jsonParser, function(req, res) {
 	var demoUserId = req.headers.authorization.split(' ')[1]
 	User.findById(demoUserId)
