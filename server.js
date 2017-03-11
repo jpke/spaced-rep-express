@@ -215,7 +215,7 @@ app.post('/demo/user', function(req, res) {
 	User.find({name: "demo user"})
 	.then(function(users) {
 		if(users.length >= 20) {
-			return users.remove().exec();
+			return User.remove({name: "demo user"}).exec();
 		}
 	})
 	.then(function() {
