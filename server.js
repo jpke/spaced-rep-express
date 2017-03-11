@@ -229,6 +229,7 @@ app.post('/demo/user', function(req, res) {
 		res.status(201).json({id: user._id})
 	})
 	.catch(function(err) {
+		console.log("error: ", err);
 		res.status(500).json("Internal Server Error");
 	})
 })
